@@ -37,35 +37,6 @@
       overflow-x: hidden;
     }
 
-    /* ── CUSTOM CURSOR ── */
-    #cursor {
-      position: fixed; top: 0; left: 0; z-index: 9999;
-      pointer-events: none;
-      mix-blend-mode: exclusion;
-      display: none;
-    }
-    #cursor-dot {
-      position: absolute;
-      width: 8px; height: 8px;
-      background: var(--gold);
-      border-radius: 50%;
-      transform: translate(-50%,-50%);
-      transition: transform 0.1s;
-    }
-    #cursor-ring {
-      position: absolute;
-      width: 36px; height: 36px;
-      border: 1px solid var(--gold);
-      border-radius: 50%;
-      transform: translate(-50%,-50%);
-      transition: width 0.3s, height 0.3s, transform 0.08s;
-    }
-    body.hovering #cursor-ring {
-      width: 56px; height: 56px;
-      border-color: var(--bone);
-    }
-    body.hovering #cursor-dot { transform: translate(-50%,-50%) scale(0); }
-
     /* ── ANIMATED BACKGROUND ── */
     .animated-bg {
       position: fixed; top: 0; left: 0;
@@ -128,6 +99,7 @@
       justify-content: flex-end;
       padding: 0 48px 80px;
       overflow: hidden;
+      margin-top: 0;
     }
     .hero-bg {
       position: absolute; inset: 0;
@@ -150,19 +122,19 @@
     .hero-slide.active { opacity: 1; }
     .hero-slide:nth-child(1) {
       background-image: linear-gradient(to bottom, rgba(10,10,15,0.2), rgba(10,10,15,0.7)),
-        url('https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=1920&q=80');
+        url('https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=1920&q=80');
     }
     .hero-slide:nth-child(2) {
       background-image: linear-gradient(to bottom, rgba(10,10,15,0.2), rgba(10,10,15,0.7)),
-        url('https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=1920&q=80');
+        url('https://images.unsplash.com/photo-1552820728-8ac41f1ce891?w=1920&q=80');
     }
     .hero-slide:nth-child(3) {
       background-image: linear-gradient(to bottom, rgba(10,10,15,0.2), rgba(10,10,15,0.7)),
-        url('https://images.unsplash.com/photo-1580392943046-6d65e30b39aa?w=1920&q=80');
+        url('https://images.unsplash.com/photo-1533473359331-35a642af60c9?w=1920&q=80');
     }
     .hero-slide:nth-child(4) {
       background-image: linear-gradient(to bottom, rgba(10,10,15,0.2), rgba(10,10,15,0.7)),
-        url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80');
+        url('https://images.unsplash.com/photo-1552820728-8ac41f1ce891?w=1920&q=80');
     }
 
     .hero-eyebrow {
@@ -196,6 +168,7 @@
       position: relative; z-index: 1;
       opacity: 0; transform: translateY(20px);
       animation: fadeUp 1s ease 1s forwards;
+      flex-wrap: wrap;
     }
     .btn-primary {
       background: var(--gold); color: var(--ink);
@@ -265,6 +238,7 @@
       font-size: clamp(2.2rem, 4vw, 3.8rem);
       font-weight: 300; line-height: 1.1;
       color: var(--bone);
+      margin-bottom: 40px;
     }
     .section-title em { color: var(--gold); font-style: italic; }
 
@@ -314,6 +288,8 @@
     .rides-header {
       display: flex; justify-content: space-between; align-items: flex-end;
       margin-bottom: 64px;
+      flex-wrap: wrap;
+      gap: 20px;
     }
     .rides-tabs {
       display: flex; gap: 0;
@@ -362,7 +338,7 @@
       font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
       padding: 4px 10px; border-radius: 2px; font-weight: 600;
     }
-    .ride-card-body { padding: 24px; }
+    .ride-card-body { padding: 24px; position: relative; z-index: 2; }
     .ride-name {
       font-family: var(--font-serif); font-size: 1.4rem;
       font-weight: 400; color: var(--bone); margin-bottom: 8px;
@@ -370,6 +346,7 @@
     .ride-specs {
       display: flex; gap: 16px; margin-bottom: 16px;
       font-size: 0.78rem; color: var(--muted);
+      flex-wrap: wrap;
     }
     .ride-spec { display: flex; align-items: center; gap: 4px; }
     .ride-price { font-family: var(--font-serif); font-size: 1.6rem; color: var(--gold); }
@@ -384,59 +361,205 @@
     }
     .ride-whatsapp:hover { background: rgba(37,211,102,0.2); }
 
-    /* ── CONTACT ── */
-    #contact { background: linear-gradient(to bottom, #0a0a0f, #050305); }
-    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-top: 64px; }
-    .contact-info { display: flex; flex-direction: column; gap: 32px; }
-    .contact-item { display: flex; gap: 16px; align-items: flex-start; }
-    .contact-icon {
-      width: 44px; height: 44px; background: var(--gold-dim);
-      border: 1px solid rgba(201,162,39,0.3);
-      border-radius: 2px; display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem; flex-shrink: 0;
+    /* ── WHY US / ABOUT ── */
+    #why {
+      background: linear-gradient(180deg, rgba(10,10,15,0.95) 0%, rgba(15,12,6,0.95) 100%);
     }
-    .contact-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
-    .contact-val { font-size: 0.95rem; color: var(--bone); line-height: 1.5; }
-    .contact-val a { color: var(--bone); text-decoration: none; }
-    .contact-val a:hover { color: var(--gold); }
 
-    .social-links { display: flex; gap: 12px; margin-top: 8px; }
-    .social-link {
-      width: 40px; height: 40px; border: 1px solid rgba(201,162,39,0.25);
-      border-radius: 2px; display: flex; align-items: center; justify-content: center;
-      color: var(--muted); text-decoration: none; font-size: 1rem;
-      transition: border-color 0.25s, color 0.25s, background 0.25s;
+    .why-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+      margin-top: 60px;
     }
-    .social-link:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-dim); }
 
-    .contact-form { display: flex; flex-direction: column; gap: 20px; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .form-group { display: flex; flex-direction: column; gap: 8px; }
-    .form-label { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); }
-    .form-input, .form-textarea {
-      background: rgba(245,240,232,0.04);
-      border: 1px solid rgba(245,240,232,0.1);
-      color: var(--bone); padding: 14px 16px;
-      font-family: var(--font-sans); font-size: 0.9rem;
-      border-radius: 2px; outline: none;
-      transition: border-color 0.25s, background 0.25s;
+    .why-points {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
     }
-    .form-input:focus, .form-textarea:focus {
-      border-color: var(--gold); background: rgba(201,162,39,0.04);
+
+    .why-point {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      padding: 24px;
+      background: rgba(201,162,39,0.05);
+      border-left: 3px solid var(--gold);
+      border-radius: 2px;
+      transition: background 0.3s;
     }
-    .form-input::placeholder, .form-textarea::placeholder { color: rgba(245,240,232,0.25); }
-    .form-textarea { resize: vertical; min-height: 120px; }
+
+    .why-point:hover {
+      background: rgba(201,162,39,0.12);
+    }
+
+    .why-point-icon {
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+      background: var(--gold);
+      color: var(--ink);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .why-point-content {
+      flex: 1;
+    }
+
+    .why-point-title {
+      font-weight: 600;
+      color: var(--bone);
+      margin-bottom: 8px;
+      font-size: 1rem;
+    }
+
+    .why-point-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .why-sidebar {
+      background: rgba(201,162,39,0.08);
+      padding: 48px;
+      border-radius: 4px;
+      border: 1px solid rgba(201,162,39,0.2);
+      position: sticky;
+      top: 120px;
+    }
+
+    .why-sidebar h3 {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      color: var(--gold);
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .why-sidebar p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+
     .whatsapp-cta {
-      display: flex; align-items: center; gap: 10px;
-      background: #25d366; color: #fff;
-      padding: 15px 24px; border-radius: 2px;
-      text-decoration: none; font-size: 0.85rem; font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #25d366;
+      color: #fff;
+      padding: 15px 24px;
+      border-radius: 2px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
       transition: background 0.25s, transform 0.2s;
       justify-content: center;
       border: none;
       cursor: pointer;
+      width: 100%;
     }
-    .whatsapp-cta:hover { background: #128c7e; transform: translateY(-2px); }
+
+    .whatsapp-cta:hover {
+      background: #128c7e;
+      transform: translateY(-2px);
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: linear-gradient(to bottom, #0a0a0f, #050305);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      margin-top: 64px;
+      align-items: start;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .contact-item {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      padding: 24px;
+      background: rgba(201,162,39,0.05);
+      border-radius: 4px;
+      border-left: 3px solid var(--gold);
+    }
+
+    .contact-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--gold-dim);
+      border: 1px solid rgba(201,162,39,0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .contact-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+
+    .contact-val {
+      font-size: 0.95rem;
+      color: var(--bone);
+      line-height: 1.5;
+    }
+
+    .contact-val a {
+      color: var(--gold);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.25s;
+    }
+
+    .contact-val a:hover {
+      color: var(--bone);
+    }
+
+    .quick-booking {
+      background: rgba(201,162,39,0.08);
+      padding: 48px;
+      border-radius: 4px;
+      border: 1px solid rgba(201,162,39,0.2);
+    }
+
+    .quick-booking h3 {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      color: var(--bone);
+      margin-bottom: 20px;
+    }
+
+    .quick-booking p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
 
     /* ── FOOTER ── */
     footer {
@@ -444,42 +567,103 @@
       border-top: 1px solid rgba(201,162,39,0.1);
       padding: 60px 48px 32px;
     }
-    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; margin-bottom: 48px; }
-    .footer-brand .nav-logo { font-size: 1.8rem; display: block; margin-bottom: 16px; }
-    .footer-brand p { font-size: 0.85rem; color: var(--muted); line-height: 1.75; max-width: 320px; }
-    .footer-col h4 {
-      font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 20px;
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 48px;
     }
-    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-    .footer-col ul a { font-size: 0.85rem; color: var(--muted); text-decoration: none; transition: color 0.25s; }
-    .footer-col ul a:hover { color: var(--bone); }
+
+    .footer-brand .nav-logo {
+      font-size: 1.8rem;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .footer-brand p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 320px;
+    }
+
+    .footer-col h4 {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-col ul a {
+      font-size: 0.85rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.25s;
+    }
+
+    .footer-col ul a:hover {
+      color: var(--bone);
+    }
+
     .footer-bottom {
       border-top: 1px solid rgba(245,240,232,0.06);
       padding-top: 28px;
-      display: flex; justify-content: space-between; align-items: center;
-      font-size: 0.78rem; color: rgba(245,240,232,0.3);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      color: rgba(245,240,232,0.3);
+      flex-wrap: wrap;
+      gap: 16px;
     }
 
     /* ── REVEAL ANIMATIONS ── */
     .reveal {
-      opacity: 0; transform: translateY(40px);
+      opacity: 0;
+      transform: translateY(40px);
       transition: opacity 0.8s ease, transform 0.8s ease;
     }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
     /* ── FLOATING WHATSAPP ── */
     .float-wa {
-      position: fixed; bottom: 32px; right: 32px; z-index: 200;
-      width: 56px; height: 56px; border-radius: 50%;
-      background: #25d366; color: #fff;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.5rem; text-decoration: none;
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      z-index: 200;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #25d366;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      text-decoration: none;
       box-shadow: 0 8px 32px rgba(37,211,102,0.4);
       transition: transform 0.3s, box-shadow 0.3s;
       animation: pulse-wa 2.5s infinite;
     }
-    .float-wa:hover { transform: scale(1.1); box-shadow: 0 12px 40px rgba(37,211,102,0.6); }
+
+    .float-wa:hover {
+      transform: scale(1.1);
+      box-shadow: 0 12px 40px rgba(37,211,102,0.6);
+    }
+
     @keyframes pulse-wa {
       0%, 100% { box-shadow: 0 8px 32px rgba(37,211,102,0.4); }
       50% { box-shadow: 0 8px 48px rgba(37,211,102,0.6), 0 0 0 8px rgba(37,211,102,0.1); }
@@ -492,14 +676,16 @@
       .section-pad { padding: 80px 24px; }
       #hero { padding: 0 24px 60px; }
       .hero-stats { display: none; }
-      .hero-slide-dots { left: 24px; }
+      .hero-slide-dots { display: none; }
       .services-grid { grid-template-columns: 1fr; }
       .ride-panel.active { grid-template-columns: 1fr; }
       .rides-header { flex-direction: column; gap: 24px; align-items: flex-start; }
-      .contact-grid { grid-template-columns: 1fr; }
+      .why-content { grid-template-columns: 1fr; gap: 40px; }
+      .contact-grid { grid-template-columns: 1fr; gap: 40px; }
       .footer-grid { grid-template-columns: 1fr; gap: 40px; }
       .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
-      .form-row { grid-template-columns: 1fr; }
+      .why-sidebar { position: relative; top: auto; }
+      .float-wa { width: 50px; height: 50px; font-size: 24px; }
     }
   </style>
 </head>
@@ -508,15 +694,9 @@
 <!-- ANIMATED BACKGROUND -->
 <div class="animated-bg"></div>
 
-<!-- CURSOR -->
-<div id="cursor">
-  <div id="cursor-dot"></div>
-  <div id="cursor-ring"></div>
-</div>
-
 <!-- FLOATING WHATSAPP -->
 <a href="https://wa.me/918080240786?text=Hello%20Noor%20Tours%20and%20Travels!%20I%20would%20like%20to%20book%20a%20cab." class="float-wa" target="_blank" title="Book on WhatsApp" rel="noopener noreferrer">
-  📱
+  💬
 </a>
 
 <!-- NAV -->
@@ -545,7 +725,7 @@
   <p class="hero-sub">Premium cab services and curated tours across India. Airport transfers, inter-city rides, spiritual circuits and weekend escapes — all from Mumbai.</p>
   <div class="hero-actions">
     <a href="https://wa.me/918080240786?text=I'd%20like%20to%20book%20a%20cab%20with%20Noor%20Tours%20and%20Travels" class="btn-primary" target="_blank" rel="noopener noreferrer">
-      📲 Book on WhatsApp
+      💬 Book on WhatsApp
     </a>
     <a href="tel:+918080240786" class="btn-ghost">
       ☎️ Call Now
@@ -639,7 +819,7 @@
     <!-- SEDAN -->
     <div class="ride-panel active" id="tab-sedan">
       <div class="ride-card reveal">
-        <div class="ride-card-img" style="background-image:url('https://images.unsplash.com/photo-1550355291-bbee04a92027?w=600&q=80')">
+        <div class="ride-card-img" style="background-image:url('https://images.unsplash.com/photo-1559305033-c3468ab1b3b1?w=600&q=80')">
           <span class="ride-badge">Most Popular</span>
         </div>
         <div class="ride-card-body">
@@ -652,7 +832,7 @@
           <div class="ride-price">₹2,800</div>
           <div class="ride-price-label">Mumbai → Pune one-way (toll incl.)</div>
           <a href="https://wa.me/918080240786?text=I'd%20like%20to%20book%20a%20Sedan%20(Dzire%2FEtios)%20for%20Mumbai%20to%20Pune" class="ride-whatsapp" target="_blank" rel="noopener noreferrer">
-            📱 Book on WhatsApp
+            💬 Book on WhatsApp
           </a>
         </div>
       </div>
@@ -661,7 +841,7 @@
     <!-- SUV -->
     <div class="ride-panel" id="tab-suv">
       <div class="ride-card reveal">
-        <div class="ride-card-img" style="background-image:url('https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=600&q=80')">
+        <div class="ride-card-img" style="background-image:url('https://images.unsplash.com/photo-1605559424843-9e4c3febfe75?w=600&q=80')">
           <span class="ride-badge">Best for Families</span>
         </div>
         <div class="ride-card-body">
@@ -674,12 +854,12 @@
           <div class="ride-price">₹3,300</div>
           <div class="ride-price-label">Mumbai → Pune one-way (toll incl.)</div>
           <a href="https://wa.me/918080240786?text=I'd%20like%20to%20book%20an%20Ertiga%20for%20Mumbai%20to%20Pune" class="ride-whatsapp" target="_blank" rel="noopener noreferrer">
-            📱 Book on WhatsApp
+            💬 Book on WhatsApp
           </a>
         </div>
       </div>
       <div class="ride-card reveal" style="transition-delay:0.1s">
-        <div class="ride-card-img" style="background-image:url('https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=600&q=80')">
+        <div class="ride-card-img" style="background-image:url('https://images.unsplash.com/photo-1618541007167-b5cdd73924e7?w=600&q=80')">
           <span class="ride-badge">Premium</span>
         </div>
         <div class="ride-card-body">
@@ -692,7 +872,7 @@
           <div class="ride-price">₹5,500</div>
           <div class="ride-price-label">Mumbai → Pune one-way (toll incl.)</div>
           <a href="https://wa.me/918080240786?text=I'd%20like%20to%20book%20an%20Innova%20Crysta%20for%20Mumbai%20to%20Pune" class="ride-whatsapp" target="_blank" rel="noopener noreferrer">
-            📱 Book on WhatsApp
+            💬 Book on WhatsApp
           </a>
         </div>
       </div>
@@ -701,7 +881,7 @@
     <!-- GROUP -->
     <div class="ride-panel" id="tab-group">
       <div class="ride-card reveal">
-        <div class="ride-card-img" style="background-image:url('https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=600&q=80')">
+        <div class="ride-card-img" style="background-image:url('https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=600&q=80')">
           <span class="ride-badge">Group Special</span>
         </div>
         <div class="ride-card-body">
@@ -714,7 +894,7 @@
           <div class="ride-price">₹17,000+</div>
           <div class="ride-price-label">Mumbai → Pune one-way</div>
           <a href="https://wa.me/918080240786?text=I%20need%20a%20Tempo%20Traveller%20for%20a%20group" class="ride-whatsapp" target="_blank" rel="noopener noreferrer">
-            📱 Get group quote
+            💬 Get group quote
           </a>
         </div>
       </div>
@@ -722,57 +902,61 @@
   </div>
 </section>
 
-<!-- WHY US -->
+<!-- WHY US / ABOUT -->
 <section id="why" class="section-pad">
   <p class="section-label reveal">About Us</p>
-  <h2 class="section-title reveal">Why <em>Noor Travels</em></h2>
-  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-top: 64px; align-items: start;">
-    <div>
-      <div class="why-points">
-        <div class="why-point">
-          <div class="why-point-icon">✓</div>
-          <div>
-            <div class="why-point-title">10+ Years Experience</div>
-            <div class="why-point-desc">Trusted by thousands of passengers with a perfect safety and punctuality record.</div>
-          </div>
+  <h2 class="section-title reveal">Why Choose <em>Noor Travels</em></h2>
+  
+  <div class="why-content">
+    <div class="why-points">
+      <div class="why-point reveal">
+        <div class="why-point-icon">✓</div>
+        <div class="why-point-content">
+          <div class="why-point-title">10+ Years Experience</div>
+          <div class="why-point-desc">Trusted by thousands of passengers with a perfect safety and punctuality record.</div>
         </div>
-        <div class="why-point">
-          <div class="why-point-icon">✓</div>
-          <div>
-            <div class="why-point-title">Professional Drivers</div>
-            <div class="why-point-desc">Courteous, trained, and background-verified drivers for your peace of mind.</div>
-          </div>
+      </div>
+
+      <div class="why-point reveal" style="transition-delay: 0.1s">
+        <div class="why-point-icon">✓</div>
+        <div class="why-point-content">
+          <div class="why-point-title">Professional Drivers</div>
+          <div class="why-point-desc">Courteous, trained, and background-verified drivers for your peace of mind.</div>
         </div>
-        <div class="why-point">
-          <div class="why-point-icon">✓</div>
-          <div>
-            <div class="why-point-title">Well-Maintained Fleet</div>
-            <div class="why-point-desc">Modern vehicles with full AC, comfortable seating, and regular maintenance.</div>
-          </div>
+      </div>
+
+      <div class="why-point reveal" style="transition-delay: 0.2s">
+        <div class="why-point-icon">✓</div>
+        <div class="why-point-content">
+          <div class="why-point-title">Well-Maintained Fleet</div>
+          <div class="why-point-desc">Modern vehicles with full AC, comfortable seating, and regular maintenance.</div>
         </div>
-        <div class="why-point">
-          <div class="why-point-icon">✓</div>
-          <div>
-            <div class="why-point-title">Transparent Pricing</div>
-            <div class="why-point-desc">No hidden charges. Toll included. Competitive rates across all routes.</div>
-          </div>
+      </div>
+
+      <div class="why-point reveal" style="transition-delay: 0.3s">
+        <div class="why-point-icon">✓</div>
+        <div class="why-point-content">
+          <div class="why-point-title">Transparent Pricing</div>
+          <div class="why-point-desc">No hidden charges. Toll included. Competitive rates across all routes.</div>
         </div>
-        <div class="why-point">
-          <div class="why-point-icon">✓</div>
-          <div>
-            <div class="why-point-title">24/7 Support</div>
-            <div class="why-point-desc">Call or WhatsApp anytime. We're always here to help with bookings and queries.</div>
-          </div>
+      </div>
+
+      <div class="why-point reveal" style="transition-delay: 0.4s">
+        <div class="why-point-icon">✓</div>
+        <div class="why-point-content">
+          <div class="why-point-title">24/7 Support</div>
+          <div class="why-point-desc">Call or WhatsApp anytime. We're always here to help with bookings and queries.</div>
         </div>
       </div>
     </div>
-    <div style="background: rgba(201,162,39,0.08); padding: 40px; border-radius: 4px; border: 1px solid rgba(201,162,39,0.2);">
-      <h3 style="font-family: var(--font-serif); font-size: 2rem; color: var(--gold); margin-bottom: 20px;">Ready to Travel?</h3>
-      <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.8; margin-bottom: 24px;">
+
+    <div class="why-sidebar reveal">
+      <h3>Ready to Travel?</h3>
+      <p>
         Whether you're heading to Pune for business, exploring spiritual destinations, or planning a weekend getaway with family, Noor Tours & Travels is your trusted companion on every journey.
       </p>
       <a href="https://wa.me/918080240786?text=Hi%20Noor%20Travels!%20I'd%20like%20to%20know%20more%20about%20your%20services." class="whatsapp-cta" target="_blank" rel="noopener noreferrer">
-        Start Your Journey 🚗
+        💬 Start Your Journey
       </a>
     </div>
   </div>
@@ -782,9 +966,10 @@
 <section id="contact" class="section-pad">
   <p class="section-label reveal">Get in Touch</p>
   <h2 class="section-title reveal">Let's Connect</h2>
+  
   <div class="contact-grid">
     <div class="contact-info">
-      <div class="contact-item">
+      <div class="contact-item reveal">
         <div class="contact-icon">📞</div>
         <div>
           <div class="contact-label">Call Us</div>
@@ -793,7 +978,8 @@
           </div>
         </div>
       </div>
-      <div class="contact-item">
+
+      <div class="contact-item reveal" style="transition-delay: 0.1s">
         <div class="contact-icon">💬</div>
         <div>
           <div class="contact-label">WhatsApp</div>
@@ -802,7 +988,8 @@
           </div>
         </div>
       </div>
-      <div class="contact-item">
+
+      <div class="contact-item reveal" style="transition-delay: 0.2s">
         <div class="contact-icon">📍</div>
         <div>
           <div class="contact-label">Location</div>
@@ -810,16 +997,15 @@
         </div>
       </div>
     </div>
-    <div>
-      <div style="background: rgba(201,162,39,0.08); padding: 40px; border-radius: 4px; border: 1px solid rgba(201,162,39,0.2);">
-        <h3 style="font-family: var(--font-serif); font-size: 1.6rem; color: var(--bone); margin-bottom: 20px;">Quick Booking</h3>
-        <p style="color: var(--muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 24px;">
-          The fastest way to book is through WhatsApp. Just click the button below and tell us your requirements!
-        </p>
-        <a href="https://wa.me/918080240786?text=Hi!%20I'd%20like%20to%20book%20a%20cab%20with%20Noor%20Travels.%20Can%20you%20help?" class="whatsapp-cta" target="_blank" rel="noopener noreferrer">
-          💬 Book Now on WhatsApp
-        </a>
-      </div>
+
+    <div class="quick-booking reveal">
+      <h3>Quick Booking</h3>
+      <p>
+        The fastest way to book is through WhatsApp. Just click the button below and tell us your requirements!
+      </p>
+      <a href="https://wa.me/918080240786?text=Hi!%20I'd%20like%20to%20book%20a%20cab%20with%20Noor%20Travels.%20Can%20you%20help?" class="whatsapp-cta" target="_blank" rel="noopener noreferrer">
+        💬 Book Now on WhatsApp
+      </a>
     </div>
   </div>
 </section>
@@ -920,13 +1106,6 @@
 
   window.addEventListener('scroll', checkReveal);
   checkReveal(); // Initial check
-
-  // Performance optimization: Disable animations on mobile
-  if (window.innerWidth < 768) {
-    document.querySelectorAll('[style*="transition"]').forEach(el => {
-      el.style.transition = 'none';
-    });
-  }
 </script>
 
 </body>
