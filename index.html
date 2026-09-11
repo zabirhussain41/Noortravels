@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Book premium cabs and tour packages from Mumbai. Mumbai to Pune, Airport Transfers, Shirdi, Goa, Mahabaleshwar and all India tours. Call +91 80802 40786">
+  <meta name="keywords" content="cab service, tour package, Mumbai, Pune, airport transfer">
+  <meta property="og:title" content="Noor Tours & Travels — Mumbai | Premium Cab & Tour Services">
+  <meta property="og:description" content="Premium cab services and curated tours across India">
+  <meta property="og:type" content="website">
+  <title>Noor Tours & Travels — Mumbai | Premium Cab & Tour Services</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0a0a0f;
+      --bone: #f5f0e8;
+      --gold: #c9a227;
+      --gold-dim: rgba(201,162,39,0.15);
+      --glass: rgba(10,10,15,0.6);
+      --white: #ffffff;
+      --muted: rgba(245,240,232,0.5);
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Inter', system-ui, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      background: var(--ink);
+      color: var(--bone);
+      font-family: var(--font-sans);
+      overflow-x: hidden;
+    }
+
+    /* ── CUSTOM CURSOR ── */
+    #cursor {
+      position: fixed; top: 0; left: 0; z-index: 9999;
+      pointer-events: none;
+      mix-blend-mode: exclusion;
+      display: none;
+    }
+    #cursor-dot {
+      position: absolute;
+      width: 8px; height: 8px;
+      background: var(--gold);
+      border-radius: 50%;
+      transform: translate(-50%,-50%);
+      transition: transform 0.1s;
+    }
+    #cursor-ring {
+      position: absolute;
+      width: 36px; height: 36px;
+      border: 1px solid var(--gold);
+      border-radius: 50%;
+      transform: translate(-50%,-50%);
+      transition: width 0.3s, height 0.3s, transform 0.08s;
+    }
+    body.hovering #cursor-ring {
+      width: 56px; height: 56px;
+      border-color: var(--bone);
+    }
+    body.hovering #cursor-dot { transform: translate(-50%,-50%) scale(0); }
+
+    /* ── ANIMATED BACKGROUND ── */
+    .animated-bg {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0; pointer-events: none;
+      background: linear-gradient(135deg, #0a0a0f 0%, #1a1420 50%, #0f0c06 100%);
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 48px;
+      backdrop-filter: blur(12px);
+      background: rgba(10,10,15,0.3);
+      border-bottom: 1px solid rgba(201,162,39,0.1);
+      transition: background 0.4s, padding 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(10,10,15,0.85);
+      padding: 14px 48px;
+    }
+    .nav-logo {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--gold);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      position: relative;
+      z-index: 1;
+    }
+    .nav-logo span { color: var(--bone); font-weight: 300; }
+    .nav-links {
+      display: flex; gap: 36px; list-style: none;
+      align-items: center;
+    }
+    .nav-links a {
+      color: var(--muted); text-decoration: none;
+      font-size: 0.8rem; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      transition: color 0.25s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta {
+      background: var(--gold);
+      color: var(--ink) !important;
+      padding: 8px 20px;
+      border-radius: 2px;
+      font-weight: 600 !important;
+      transition: background 0.25s, transform 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--bone) !important; transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative; z-index: 1;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 48px 80px;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        160deg,
+        rgba(10,10,15,0.1) 0%,
+        rgba(10,10,15,0.4) 40%,
+        rgba(10,10,15,0.85) 100%
+      );
+      z-index: 0;
+    }
+    .hero-slides {
+      position: absolute; inset: 0; z-index: -1;
+    }
+    .hero-slide {
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center;
+      opacity: 0; transition: opacity 1.2s ease;
+    }
+    .hero-slide.active { opacity: 1; }
+    .hero-slide:nth-child(1) {
+      background-image: linear-gradient(to bottom, rgba(10,10,15,0.2), rgba(10,10,15,0.7)),
+        url('https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=1920&q=80');
+    }
+    .hero-slide:nth-child(2) {
+      background-image: linear-gradient(to bottom, rgba(10,10,15,0.2), rgba(10,10,15,0.7)),
+        url('https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=1920&q=80');
+    }
+    .hero-slide:nth-child(3) {
+      background-image: linear-gradient(to bottom, rgba(10,10,15,0.2), rgba(10,10,15,0.7)),
+        url('https://images.unsplash.com/photo-1580392943046-6d65e30b39aa?w=1920&q=80');
+    }
+    .hero-slide:nth-child(4) {
+      background-image: linear-gradient(to bottom, rgba(10,10,15,0.2), rgba(10,10,15,0.7)),
+        url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80');
+    }
+
+    .hero-eyebrow {
+      font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--gold); font-family: var(--font-sans); font-weight: 400;
+      position: relative; z-index: 1;
+      margin-bottom: 18px;
+      opacity: 0; transform: translateY(20px);
+      animation: fadeUp 1s ease 0.3s forwards;
+    }
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(3.5rem, 8vw, 8rem);
+      font-weight: 300; line-height: 0.95;
+      color: var(--bone);
+      position: relative; z-index: 1;
+      margin-bottom: 28px;
+      opacity: 0; transform: translateY(30px);
+      animation: fadeUp 1.1s ease 0.5s forwards;
+    }
+    .hero-title em { color: var(--gold); font-style: italic; }
+    .hero-sub {
+      font-size: 1rem; color: var(--muted);
+      max-width: 520px; line-height: 1.7;
+      position: relative; z-index: 1;
+      opacity: 0; transform: translateY(20px);
+      animation: fadeUp 1s ease 0.8s forwards;
+    }
+    .hero-actions {
+      display: flex; gap: 16px; margin-top: 40px;
+      position: relative; z-index: 1;
+      opacity: 0; transform: translateY(20px);
+      animation: fadeUp 1s ease 1s forwards;
+    }
+    .btn-primary {
+      background: var(--gold); color: var(--ink);
+      padding: 14px 32px; text-decoration: none;
+      font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      border-radius: 2px;
+      transition: background 0.25s, transform 0.2s;
+      display: inline-flex; align-items: center; gap: 8px;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-primary:hover { background: var(--bone); transform: translateY(-2px); }
+    .btn-ghost {
+      border: 1px solid rgba(245,240,232,0.3); color: var(--bone);
+      padding: 14px 32px; text-decoration: none;
+      font-size: 0.8rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      border-radius: 2px;
+      transition: border-color 0.25s, background 0.25s, transform 0.2s;
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent;
+      cursor: pointer;
+    }
+    .btn-ghost:hover {
+      border-color: var(--gold); background: var(--gold-dim);
+      transform: translateY(-2px);
+    }
+    .hero-stats {
+      position: absolute; right: 48px; bottom: 80px;
+      z-index: 1; text-align: right;
+      opacity: 0; animation: fadeUp 1s ease 1.2s forwards;
+    }
+    .hero-stat { margin-bottom: 24px; }
+    .hero-stat-num {
+      font-family: var(--font-serif); font-size: 2.8rem;
+      font-weight: 300; color: var(--bone); line-height: 1;
+    }
+    .hero-stat-label {
+      font-size: 0.7rem; color: var(--gold);
+      letter-spacing: 0.15em; text-transform: uppercase;
+    }
+    .hero-slide-dots {
+      position: absolute; left: 48px; bottom: 80px;
+      z-index: 2; display: flex; gap: 10px;
+    }
+    .slide-dot {
+      width: 24px; height: 2px; background: rgba(245,240,232,0.3);
+      cursor: pointer; transition: background 0.3s, width 0.3s;
+    }
+    .slide-dot.active { background: var(--gold); width: 48px; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── SECTIONS ── */
+    section { position: relative; z-index: 1; }
+
+    .section-pad { padding: 120px 48px; }
+    .section-label {
+      font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.2rem, 4vw, 3.8rem);
+      font-weight: 300; line-height: 1.1;
+      color: var(--bone);
+    }
+    .section-title em { color: var(--gold); font-style: italic; }
+
+    /* ── SERVICES ── */
+    #services { background: rgba(10,10,15,0.95); }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 1px; margin-top: 64px;
+      border: 1px solid rgba(201,162,39,0.1);
+    }
+    .service-card {
+      padding: 48px 40px;
+      border: 1px solid rgba(201,162,39,0.1);
+      position: relative; overflow: hidden;
+      transition: background 0.35s;
+      cursor: default;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: var(--gold-dim);
+      opacity: 0; transition: opacity 0.35s;
+    }
+    .service-card:hover::before { opacity: 1; }
+    .service-card:hover .service-icon { transform: scale(1.1) rotate(-5deg); }
+    .service-num {
+      font-family: var(--font-serif); font-size: 0.85rem;
+      color: var(--gold); letter-spacing: 0.1em; margin-bottom: 28px;
+    }
+    .service-icon { font-size: 2rem; margin-bottom: 20px; transition: transform 0.4s; display: block; }
+    .service-title {
+      font-family: var(--font-serif); font-size: 1.6rem;
+      font-weight: 400; color: var(--bone); margin-bottom: 14px; line-height: 1.2;
+    }
+    .service-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.75; }
+    .service-link {
+      display: inline-block; margin-top: 28px;
+      font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--gold); text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.25s;
+    }
+    .service-link:hover { border-color: var(--gold); }
+
+    /* ── RIDES ── */
+    #rides { background: linear-gradient(180deg, #0a0a0f 0%, #0f0c06 100%); }
+    .rides-header {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 64px;
+    }
+    .rides-tabs {
+      display: flex; gap: 0;
+      border: 1px solid rgba(201,162,39,0.2);
+      border-radius: 2px; overflow: hidden;
+    }
+    .ride-tab {
+      padding: 10px 22px; background: transparent;
+      border: none; color: var(--muted);
+      font-size: 0.8rem; font-weight: 500;
+      letter-spacing: 0.08em; cursor: pointer;
+      transition: background 0.25s, color 0.25s;
+      font-family: var(--font-sans);
+    }
+    .ride-tab.active { background: var(--gold); color: var(--ink); }
+
+    .rides-container { position: relative; min-height: 420px; }
+    .ride-panel { display: none; }
+    .ride-panel.active { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+
+    .ride-card {
+      background: rgba(201,162,39,0.04);
+      border: 1px solid rgba(201,162,39,0.12);
+      border-radius: 4px;
+      overflow: hidden;
+      transition: transform 0.35s, border-color 0.35s, box-shadow 0.35s;
+      position: relative;
+    }
+    .ride-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(201,162,39,0.4);
+      box-shadow: 0 20px 60px rgba(201,162,39,0.1);
+    }
+    .ride-card-img {
+      height: 200px; background-size: cover; background-position: center;
+      position: relative;
+    }
+    .ride-card-img::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,10,15,0.9), transparent 60%);
+    }
+    .ride-badge {
+      position: absolute; top: 16px; left: 16px; z-index: 1;
+      background: var(--gold); color: var(--ink);
+      font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 2px; font-weight: 600;
+    }
+    .ride-card-body { padding: 24px; }
+    .ride-name {
+      font-family: var(--font-serif); font-size: 1.4rem;
+      font-weight: 400; color: var(--bone); margin-bottom: 8px;
+    }
+    .ride-specs {
+      display: flex; gap: 16px; margin-bottom: 16px;
+      font-size: 0.78rem; color: var(--muted);
+    }
+    .ride-spec { display: flex; align-items: center; gap: 4px; }
+    .ride-price { font-family: var(--font-serif); font-size: 1.6rem; color: var(--gold); }
+    .ride-price-label { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+    .ride-whatsapp {
+      display: flex; align-items: center; gap: 8px; margin-top: 20px;
+      background: rgba(37,211,102,0.1); border: 1px solid rgba(37,211,102,0.3);
+      color: #25d366; padding: 10px 16px; border-radius: 2px;
+      text-decoration: none; font-size: 0.78rem; font-weight: 500;
+      transition: background 0.25s;
+      cursor: pointer;
+    }
+    .ride-whatsapp:hover { background: rgba(37,211,102,0.2); }
+
+    /* ── CONTACT ── */
+    #contact { background: linear-gradient(to bottom, #0a0a0f, #050305); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-top: 64px; }
+    .contact-info { display: flex; flex-direction: column; gap: 32px; }
+    .contact-item { display: flex; gap: 16px; align-items: flex-start; }
+    .contact-icon {
+      width: 44px; height: 44px; background: var(--gold-dim);
+      border: 1px solid rgba(201,162,39,0.3);
+      border-radius: 2px; display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .contact-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
+    .contact-val { font-size: 0.95rem; color: var(--bone); line-height: 1.5; }
+    .contact-val a { color: var(--bone); text-decoration: none; }
+    .contact-val a:hover { color: var(--gold); }
+
+    .social-links { display: flex; gap: 12px; margin-top: 8px; }
+    .social-link {
+      width: 40px; height: 40px; border: 1px solid rgba(201,162,39,0.25);
+      border-radius: 2px; display: flex; align-items: center; justify-content: center;
+      color: var(--muted); text-decoration: none; font-size: 1rem;
+      transition: border-color 0.25s, color 0.25s, background 0.25s;
+    }
+    .social-link:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-dim); }
+
+    .contact-form { display: flex; flex-direction: column; gap: 20px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+    .form-label { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); }
+    .form-input, .form-textarea {
+      background: rgba(245,240,232,0.04);
+      border: 1px solid rgba(245,240,232,0.1);
+      color: var(--bone); padding: 14px 16px;
+      font-family: var(--font-sans); font-size: 0.9rem;
+      border-radius: 2px; outline: none;
+      transition: border-color 0.25s, background 0.25s;
+    }
+    .form-input:focus, .form-textarea:focus {
+      border-color: var(--gold); background: rgba(201,162,39,0.04);
+    }
+    .form-input::placeholder, .form-textarea::placeholder { color: rgba(245,240,232,0.25); }
+    .form-textarea { resize: vertical; min-height: 120px; }
+    .whatsapp-cta {
+      display: flex; align-items: center; gap: 10px;
+      background: #25d366; color: #fff;
+      padding: 15px 24px; border-radius: 2px;
+      text-decoration: none; font-size: 0.85rem; font-weight: 600;
+      transition: background 0.25s, transform 0.2s;
+      justify-content: center;
+      border: none;
+      cursor: pointer;
+    }
+    .whatsapp-cta:hover { background: #128c7e; transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #020202;
+      border-top: 1px solid rgba(201,162,39,0.1);
+      padding: 60px 48px 32px;
+    }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; margin-bottom: 48px; }
+    .footer-brand .nav-logo { font-size: 1.8rem; display: block; margin-bottom: 16px; }
+    .footer-brand p { font-size: 0.85rem; color: var(--muted); line-height: 1.75; max-width: 320px; }
+    .footer-col h4 {
+      font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 20px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .footer-col ul a { font-size: 0.85rem; color: var(--muted); text-decoration: none; transition: color 0.25s; }
+    .footer-col ul a:hover { color: var(--bone); }
+    .footer-bottom {
+      border-top: 1px solid rgba(245,240,232,0.06);
+      padding-top: 28px;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.78rem; color: rgba(245,240,232,0.3);
+    }
+
+    /* ── REVEAL ANIMATIONS ── */
+    .reveal {
+      opacity: 0; transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── FLOATING WHATSAPP ── */
+    .float-wa {
+      position: fixed; bottom: 32px; right: 32px; z-index: 200;
+      width: 56px; height: 56px; border-radius: 50%;
+      background: #25d366; color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; text-decoration: none;
+      box-shadow: 0 8px 32px rgba(37,211,102,0.4);
+      transition: transform 0.3s, box-shadow 0.3s;
+      animation: pulse-wa 2.5s infinite;
+    }
+    .float-wa:hover { transform: scale(1.1); box-shadow: 0 12px 40px rgba(37,211,102,0.6); }
+    @keyframes pulse-wa {
+      0%, 100% { box-shadow: 0 8px 32px rgba(37,211,102,0.4); }
+      50% { box-shadow: 0 8px 48px rgba(37,211,102,0.6), 0 0 0 8px rgba(37,211,102,0.1); }
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .section-pad { padding: 80px 24px; }
+      #hero { padding: 0 24px 60px; }
+      .hero-stats { display: none; }
+      .hero-slide-dots { left: 24px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .ride-panel.active { grid-template-columns: 1fr; }
+      .rides-header { flex-direction: column; gap: 24px; align-items: flex-start; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ANIMATED BACKGROUND -->
+<div class="animated-bg"></div>
+
+<!-- CURSOR -->
+<div id="cursor">
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+</div>
+
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/918080240786?text=Hello%20Noor%20Tours%20and%20Travels!%20I%20would%20like%20to%20book%20a%20cab." class="float-wa" target="_blank" title="Book on WhatsApp" rel="noopener noreferrer">
+  📱
+</a>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a class="nav-logo" href="#"><span>Noor</span> Tours & Travels</a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#rides">Our Fleet</a></li>
+    <li><a href="#why">About</a></li>
+    <li><a href="#contact" class="nav-cta">Book Now</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-slides">
+    <div class="hero-slide active"></div>
+    <div class="hero-slide"></div>
+    <div class="hero-slide"></div>
+    <div class="hero-slide"></div>
+  </div>
+  <div class="hero-bg"></div>
+
+  <p class="hero-eyebrow">Rooted in Mumbai · Ready for everywhere</p>
+  <h1 class="hero-title">Journey<br>beyond the <em>ordinary.</em></h1>
+  <p class="hero-sub">Premium cab services and curated tours across India. Airport transfers, inter-city rides, spiritual circuits and weekend escapes — all from Mumbai.</p>
+  <div class="hero-actions">
+    <a href="https://wa.me/918080240786?text=I'd%20like%20to%20book%20a%20cab%20with%20Noor%20Tours%20and%20Travels" class="btn-primary" target="_blank" rel="noopener noreferrer">
+      📲 Book on WhatsApp
+    </a>
+    <a href="tel:+918080240786" class="btn-ghost">
+      ☎️ Call Now
+    </a>
+  </div>
+
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">10+</div>
+      <div class="hero-stat-label">Years of trust</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">50k+</div>
+      <div class="hero-stat-label">Happy passengers</div>
+    </div>
+  </div>
+
+  <div class="hero-slide-dots">
+    <div class="slide-dot active" onclick="goSlide(0)"></div>
+    <div class="slide-dot" onclick="goSlide(1)"></div>
+    <div class="slide-dot" onclick="goSlide(2)"></div>
+    <div class="slide-dot" onclick="goSlide(3)"></div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="section-pad">
+  <p class="section-label reveal">What we do</p>
+  <h2 class="section-title reveal">One team for every <em>kind of journey.</em></h2>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-num">01</div>
+      <span class="service-icon">🚕</span>
+      <div class="service-title">Mumbai ⇄ Pune</div>
+      <p class="service-desc">Daily one-way and return cabs on the Mumbai–Pune Expressway. Clean vehicles, professional drivers, on-time every time.</p>
+      <a href="https://wa.me/918080240786?text=I%20need%20a%20Mumbai%20to%20Pune%20cab" class="service-link" target="_blank" rel="noopener noreferrer">Book this route →</a>
+    </div>
+    <div class="service-card reveal" style="transition-delay:0.1s">
+      <div class="service-num">02</div>
+      <span class="service-icon">✈️</span>
+      <div class="service-title">Airport Transfers</div>
+      <p class="service-desc">Punctual pickups and drops to Mumbai Airport (BOM). Tracking, meet-and-greet, and zero last-minute surprises.</p>
+      <a href="https://wa.me/918080240786?text=I%20need%20an%20airport%20cab" class="service-link" target="_blank" rel="noopener noreferrer">Book transfer →</a>
+    </div>
+    <div class="service-card reveal" style="transition-delay:0.2s">
+      <div class="service-num">03</div>
+      <span class="service-icon">🛕</span>
+      <div class="service-title">Spiritual Tours</div>
+      <p class="service-desc">Ashtavinayak Darshan, Jyotirlinga circuits, Shirdi, Pandharpur and Nashik — customised temple journeys across Maharashtra.</p>
+      <a href="https://wa.me/918080240786?text=Tell%20me%20about%20spiritual%20tours" class="service-link" target="_blank" rel="noopener noreferrer">Plan darshan →</a>
+    </div>
+    <div class="service-card reveal" style="transition-delay:0.0s">
+      <div class="service-num">04</div>
+      <span class="service-icon">🏖️</span>
+      <div class="service-title">Weekend Escapes</div>
+      <p class="service-desc">Goa, Alibaug, Malvan, Mahabaleshwar — coastal retreats and hill getaways with all logistics handled end-to-end.</p>
+      <a href="https://wa.me/918080240786?text=I%20want%20a%20weekend%20getaway%20package" class="service-link" target="_blank" rel="noopener noreferrer">See packages →</a>
+    </div>
+    <div class="service-card reveal" style="transition-delay:0.1s">
+      <div class="service-num">05</div>
+      <span class="service-icon">🚌</span>
+      <div class="service-title">Group Travel</div>
+      <p class="service-desc">Tempo travellers and mini-buses for corporate outings, family gatherings, and pilgrimage groups across all India.</p>
+      <a href="https://wa.me/918080240786?text=I%20need%20a%20group%20vehicle%20booking" class="service-link" target="_blank" rel="noopener noreferrer">Get group quote →</a>
+    </div>
+    <div class="service-card reveal" style="transition-delay:0.2s">
+      <div class="service-num">06</div>
+      <span class="service-icon">📍</span>
+      <div class="service-title">Local & Outstation</div>
+      <p class="service-desc">Hourly rentals in Mumbai for meetings, events, and errands. Outstation multi-day charters across Maharashtra and beyond.</p>
+      <a href="https://wa.me/918080240786?text=I%20need%20a%20local%20rental%20in%20Mumbai" class="service-link" target="_blank" rel="noopener noreferrer">Hire for the day →</a>
+    </div>
+  </div>
+</section>
+
+<!-- RIDES / FLEET -->
+<section id="rides" class="section-pad">
+  <div class="rides-header">
+    <div>
+      <p class="section-label reveal">Our Fleet</p>
+      <h2 class="section-title reveal">Comfort for one. <em>Space for everyone.</em></h2>
+    </div>
+    <div class="rides-tabs reveal">
+      <button class="ride-tab active" onclick="switchTab('sedan')">Sedan</button>
+      <button class="ride-tab" onclick="switchTab('suv')">SUV</button>
+      <button class="ride-tab" onclick="switchTab('group')">Group</button>
+    </div>
+  </div>
+
+  <div class="rides-container">
+    <!-- SEDAN -->
+    <div class="ride-panel active" id="tab-sedan">
+      <div class="ride-card reveal">
+        <div class="ride-card-img" style="background-image:url('https://images.unsplash.com/photo-1550355291-bbee04a92027?w=600&q=80')">
+          <span class="ride-badge">Most Popular</span>
+        </div>
+        <div class="ride-card-body">
+          <div class="ride-name">Dzire / Etios AC</div>
+          <div class="ride-specs">
+            <div class="ride-spec">👥 4 Seats</div>
+            <div class="ride-spec">🧳 2 Bags</div>
+            <div class="ride-spec">❄️ Full AC</div>
+          </div>
+          <div class="ride-price">₹2,800</div>
+          <div class="ride-price-label">Mumbai → Pune one-way (toll incl.)</div>
+          <a href="https://wa.me/918080240786?text=I'd%20like%20to%20book%20a%20Sedan%20(Dzire%2FEtios)%20for%20Mumbai%20to%20Pune" class="ride-whatsapp" target="_blank" rel="noopener noreferrer">
+            📱 Book on WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUV -->
+    <div class="ride-panel" id="tab-suv">
+      <div class="ride-card reveal">
+        <div class="ride-card-img" style="background-image:url('https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=600&q=80')">
+          <span class="ride-badge">Best for Families</span>
+        </div>
+        <div class="ride-card-body">
+          <div class="ride-name">Ertiga Prime SUV</div>
+          <div class="ride-specs">
+            <div class="ride-spec">👥 6 Seats</div>
+            <div class="ride-spec">🧳 3 Bags</div>
+            <div class="ride-spec">❄️ Full AC</div>
+          </div>
+          <div class="ride-price">₹3,300</div>
+          <div class="ride-price-label">Mumbai → Pune one-way (toll incl.)</div>
+          <a href="https://wa.me/918080240786?text=I'd%20like%20to%20book%20an%20Ertiga%20for%20Mumbai%20to%20Pune" class="ride-whatsapp" target="_blank" rel="noopener noreferrer">
+            📱 Book on WhatsApp
+          </a>
+        </div>
+      </div>
+      <div class="ride-card reveal" style="transition-delay:0.1s">
+        <div class="ride-card-img" style="background-image:url('https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=600&q=80')">
+          <span class="ride-badge">Premium</span>
+        </div>
+        <div class="ride-card-body">
+          <div class="ride-name">Innova Crysta</div>
+          <div class="ride-specs">
+            <div class="ride-spec">👥 7 Seats</div>
+            <div class="ride-spec">🧳 4 Bags</div>
+            <div class="ride-spec">❄️ Dual AC</div>
+          </div>
+          <div class="ride-price">₹5,500</div>
+          <div class="ride-price-label">Mumbai → Pune one-way (toll incl.)</div>
+          <a href="https://wa.me/918080240786?text=I'd%20like%20to%20book%20an%20Innova%20Crysta%20for%20Mumbai%20to%20Pune" class="ride-whatsapp" target="_blank" rel="noopener noreferrer">
+            📱 Book on WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- GROUP -->
+    <div class="ride-panel" id="tab-group">
+      <div class="ride-card reveal">
+        <div class="ride-card-img" style="background-image:url('https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=600&q=80')">
+          <span class="ride-badge">Group Special</span>
+        </div>
+        <div class="ride-card-body">
+          <div class="ride-name">Tempo Traveller</div>
+          <div class="ride-specs">
+            <div class="ride-spec">👥 12–17 Seats</div>
+            <div class="ride-spec">🧳 Ample Space</div>
+            <div class="ride-spec">❄️ Full AC</div>
+          </div>
+          <div class="ride-price">₹17,000+</div>
+          <div class="ride-price-label">Mumbai → Pune one-way</div>
+          <a href="https://wa.me/918080240786?text=I%20need%20a%20Tempo%20Traveller%20for%20a%20group" class="ride-whatsapp" target="_blank" rel="noopener noreferrer">
+            📱 Get group quote
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why" class="section-pad">
+  <p class="section-label reveal">About Us</p>
+  <h2 class="section-title reveal">Why <em>Noor Travels</em></h2>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-top: 64px; align-items: start;">
+    <div>
+      <div class="why-points">
+        <div class="why-point">
+          <div class="why-point-icon">✓</div>
+          <div>
+            <div class="why-point-title">10+ Years Experience</div>
+            <div class="why-point-desc">Trusted by thousands of passengers with a perfect safety and punctuality record.</div>
+          </div>
+        </div>
+        <div class="why-point">
+          <div class="why-point-icon">✓</div>
+          <div>
+            <div class="why-point-title">Professional Drivers</div>
+            <div class="why-point-desc">Courteous, trained, and background-verified drivers for your peace of mind.</div>
+          </div>
+        </div>
+        <div class="why-point">
+          <div class="why-point-icon">✓</div>
+          <div>
+            <div class="why-point-title">Well-Maintained Fleet</div>
+            <div class="why-point-desc">Modern vehicles with full AC, comfortable seating, and regular maintenance.</div>
+          </div>
+        </div>
+        <div class="why-point">
+          <div class="why-point-icon">✓</div>
+          <div>
+            <div class="why-point-title">Transparent Pricing</div>
+            <div class="why-point-desc">No hidden charges. Toll included. Competitive rates across all routes.</div>
+          </div>
+        </div>
+        <div class="why-point">
+          <div class="why-point-icon">✓</div>
+          <div>
+            <div class="why-point-title">24/7 Support</div>
+            <div class="why-point-desc">Call or WhatsApp anytime. We're always here to help with bookings and queries.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="background: rgba(201,162,39,0.08); padding: 40px; border-radius: 4px; border: 1px solid rgba(201,162,39,0.2);">
+      <h3 style="font-family: var(--font-serif); font-size: 2rem; color: var(--gold); margin-bottom: 20px;">Ready to Travel?</h3>
+      <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.8; margin-bottom: 24px;">
+        Whether you're heading to Pune for business, exploring spiritual destinations, or planning a weekend getaway with family, Noor Tours & Travels is your trusted companion on every journey.
+      </p>
+      <a href="https://wa.me/918080240786?text=Hi%20Noor%20Travels!%20I'd%20like%20to%20know%20more%20about%20your%20services." class="whatsapp-cta" target="_blank" rel="noopener noreferrer">
+        Start Your Journey 🚗
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section-pad">
+  <p class="section-label reveal">Get in Touch</p>
+  <h2 class="section-title reveal">Let's Connect</h2>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div>
+          <div class="contact-label">Call Us</div>
+          <div class="contact-val">
+            <a href="tel:+918080240786">+91 80802 40786</a>
+          </div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">💬</div>
+        <div>
+          <div class="contact-label">WhatsApp</div>
+          <div class="contact-val">
+            <a href="https://wa.me/918080240786" target="_blank" rel="noopener noreferrer">Message us on WhatsApp</a>
+          </div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div>
+          <div class="contact-label">Location</div>
+          <div class="contact-val">Based in Mumbai, serving all across Maharashtra & India</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div style="background: rgba(201,162,39,0.08); padding: 40px; border-radius: 4px; border: 1px solid rgba(201,162,39,0.2);">
+        <h3 style="font-family: var(--font-serif); font-size: 1.6rem; color: var(--bone); margin-bottom: 20px;">Quick Booking</h3>
+        <p style="color: var(--muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 24px;">
+          The fastest way to book is through WhatsApp. Just click the button below and tell us your requirements!
+        </p>
+        <a href="https://wa.me/918080240786?text=Hi!%20I'd%20like%20to%20book%20a%20cab%20with%20Noor%20Travels.%20Can%20you%20help?" class="whatsapp-cta" target="_blank" rel="noopener noreferrer">
+          💬 Book Now on WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a class="nav-logo" href="#"><span>Noor</span> Tours & Travels</a>
+      <p>Premium cab services and curated tours across India. Your trusted travel partner since 2014.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#services">Mumbai - Pune</a></li>
+        <li><a href="#services">Airport Transfers</a></li>
+        <li><a href="#services">Spiritual Tours</a></li>
+        <li><a href="#services">Weekend Escapes</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="tel:+918080240786">Call: +91 80802 40786</a></li>
+        <li><a href="https://wa.me/918080240786" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+        <li><a href="#services">Book Now</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2024 Noor Tours & Travels. All rights reserved.</span>
+    <span>Crafted with ❤️ for travelers</span>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script>
+  // Navigation scroll effect
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+  });
+
+  // Hero slide rotation
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.hero-slide');
+  const dots = document.querySelectorAll('.slide-dot');
+
+  function showSlide(n) {
+    slides.forEach(slide => slide.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active'));
+    slides[n].classList.add('active');
+    dots[n].classList.add('active');
+  }
+
+  function goSlide(n) {
+    currentSlide = n;
+    showSlide(currentSlide);
+  }
+
+  // Auto-rotate slides every 8 seconds
+  setInterval(() => {
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide(currentSlide);
+  }, 8000);
+
+  // Tab switching for rides
+  function switchTab(tabName) {
+    const panels = document.querySelectorAll('.ride-panel');
+    const tabs = document.querySelectorAll('.ride-tab');
+    
+    panels.forEach(panel => panel.classList.remove('active'));
+    tabs.forEach(tab => tab.classList.remove('active'));
+    
+    document.getElementById(`tab-${tabName}`).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  // Reveal on scroll animation
+  const reveals = document.querySelectorAll('.reveal');
+  
+  function checkReveal() {
+    reveals.forEach(element => {
+      const windowHeight = window.innerHeight;
+      const elementTop = element.getBoundingClientRect().top;
+      const elementVisible = 150;
+      
+      if (elementTop < windowHeight - elementVisible) {
+        element.classList.add('visible');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', checkReveal);
+  checkReveal(); // Initial check
+
+  // Performance optimization: Disable animations on mobile
+  if (window.innerWidth < 768) {
+    document.querySelectorAll('[style*="transition"]').forEach(el => {
+      el.style.transition = 'none';
+    });
+  }
+</script>
+
+</body>
+</html>
