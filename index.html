@@ -122,19 +122,19 @@
     .hero-slide.active { opacity: 1; }
     .hero-slide:nth-child(1) {
       background-image: linear-gradient(to bottom, rgba(10,10,15,0.2), rgba(10,10,15,0.7)),
-        url('https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=1920&q=80');
+        url('https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=1920&q=80');
     }
     .hero-slide:nth-child(2) {
       background-image: linear-gradient(to bottom, rgba(10,10,15,0.2), rgba(10,10,15,0.7)),
-        url('https://images.unsplash.com/photo-1552820728-8ac41f1ce891?w=1920&q=80');
+        url('https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=1920&q=80');
     }
     .hero-slide:nth-child(3) {
       background-image: linear-gradient(to bottom, rgba(10,10,15,0.2), rgba(10,10,15,0.7)),
-        url('https://images.unsplash.com/photo-1533473359331-35a642af60c9?w=1920&q=80');
+        url('https://images.unsplash.com/photo-1580392943046-6d65e30b39aa?w=1920&q=80');
     }
     .hero-slide:nth-child(4) {
       background-image: linear-gradient(to bottom, rgba(10,10,15,0.2), rgba(10,10,15,0.7)),
-        url('https://images.unsplash.com/photo-1552820728-8ac41f1ce891?w=1920&q=80');
+        url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80');
     }
 
     .hero-eyebrow {
@@ -281,7 +281,7 @@
       border-bottom: 1px solid transparent;
       transition: border-color 0.25s;
     }
-    .service-link:hover { border-color: var(--gold); }
+    .service-link:hover { border-bottom: 1px solid var(--gold); }
 
     /* ── RIDES ── */
     #rides { background: linear-gradient(180deg, #0a0a0f 0%, #0f0c06 100%); }
@@ -433,6 +433,7 @@
       border: 1px solid rgba(201,162,39,0.2);
       position: sticky;
       top: 120px;
+      height: fit-content;
     }
 
     .why-sidebar h3 {
@@ -466,6 +467,7 @@
       border: none;
       cursor: pointer;
       width: 100%;
+      box-sizing: border-box;
     }
 
     .whatsapp-cta:hover {
@@ -476,6 +478,7 @@
     /* ── CONTACT ── */
     #contact {
       background: linear-gradient(to bottom, #0a0a0f, #050305);
+      padding-bottom: 80px;
     }
 
     .contact-grid {
@@ -545,6 +548,7 @@
       padding: 48px;
       border-radius: 4px;
       border: 1px solid rgba(201,162,39,0.2);
+      height: fit-content;
     }
 
     .quick-booking h3 {
@@ -673,7 +677,7 @@
     @media (max-width: 900px) {
       nav { padding: 16px 24px; }
       .nav-links { display: none; }
-      .section-pad { padding: 80px 24px; }
+      .section-pad { padding: 60px 24px; }
       #hero { padding: 0 24px 60px; }
       .hero-stats { display: none; }
       .hero-slide-dots { display: none; }
@@ -681,11 +685,13 @@
       .ride-panel.active { grid-template-columns: 1fr; }
       .rides-header { flex-direction: column; gap: 24px; align-items: flex-start; }
       .why-content { grid-template-columns: 1fr; gap: 40px; }
+      .why-sidebar { position: relative; top: auto; sticky: unset; }
       .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+      .quick-booking { height: auto; }
       .footer-grid { grid-template-columns: 1fr; gap: 40px; }
       .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
-      .why-sidebar { position: relative; top: auto; }
-      .float-wa { width: 50px; height: 50px; font-size: 24px; }
+      .float-wa { width: 50px; height: 50px; font-size: 24px; bottom: 20px; right: 20px; }
+      #contact { padding-bottom: 100px; }
     }
   </style>
 </head>
@@ -881,9 +887,6 @@
     <!-- GROUP -->
     <div class="ride-panel" id="tab-group">
       <div class="ride-card reveal">
-        <div class="ride-card-img" style="background-image:url('https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=600&q=80')">
-          <span class="ride-badge">Group Special</span>
-        </div>
         <div class="ride-card-body">
           <div class="ride-name">Tempo Traveller</div>
           <div class="ride-specs">
